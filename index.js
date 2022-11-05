@@ -4,8 +4,12 @@ const mongoose = require('mongoose');
 
 dotenv.config();
 const port = process.env.PORT;
+const userRouter = require('./routes');
 const app = express();
 app.use(express.json());
+
+// API Router
+app.use('/api/user', userRouter);
 
 // Connect
 mongoose.connect(process.env.MONGO_URI, {
