@@ -13,6 +13,8 @@ userSchema.methods.generateJWT = function() {
         _id: this._id,
         number: this.number
     }, process.env.JWT_SECRET_KEY, { expiresIn: "7d" })
+    // Return only token
+    return token;
 }
 
 module.exports.User = mongoose.model('User', userSchema);
