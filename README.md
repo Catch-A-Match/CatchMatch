@@ -4,6 +4,18 @@ Currently this build is going on
 
 https://www.youtube.com/watch?v=f6oyA6kkt1w&ab_channel=Cabbage
 
+## Usage
+### 1. SignUp
+
+1. POST Request to send OTP
+```
+localhost:3001/api/user/signup
+```
+2. POST Request to Validate OTP and Save user
+```
+http://localhost:3001/api/user/signup/verify
+```
+
 ## Updates
 1. Not using `firebaseConfig.js` right now, `Firebase Auth` as a middleware is not efficient
 
