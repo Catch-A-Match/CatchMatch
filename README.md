@@ -16,8 +16,10 @@ localhost:3001/api/user/signup
 http://localhost:3001/api/user/signup/verify
 ```
 
-## Updates
-1. Not using `firebaseConfig.js` right now, `Firebase Auth` as a middleware is not efficient
+## TODO
+1. Work on User Profile Model Schema to add to the MongoDB Database when signup is done
+2. Search for an SMS Gateway API to send `OTP` to Phone Numbers via `SMS` 
+3. Not using `firebaseConfig.js` right now, `Firebase Auth` as a middleware is not efficient
 
 ## References
 1. https://stackoverflow.com/questions/66602407/how-to-use-firebase-only-for-authentication
