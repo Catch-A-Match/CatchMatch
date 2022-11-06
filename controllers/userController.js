@@ -94,6 +94,7 @@ module.exports.verifyOtp = async (req, res) => {
             number: rightOtpFind.number
         });
 
+        user.save();
         return res.status(200).send({
             message: "Your are Registered", 
             token: token,
@@ -103,3 +104,11 @@ module.exports.verifyOtp = async (req, res) => {
         return res.status(400).send("Wrong OTP Entered");
     }
 }
+
+/**
+ * Function
+ */
+
+/**
+ * Function to add Individual User Profile 
+ */
