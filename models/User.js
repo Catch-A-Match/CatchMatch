@@ -5,6 +5,52 @@ const userSchema = mongoose.Schema({
     number: {
         type: String,
         required: true
+    },
+    username: {
+        type: String,
+        required: true
+    },
+    Instagram: {
+        type: String
+    },
+    Age: {
+        type: Number
+    },
+    Gender: {
+        type: String,
+        enum: ['M', 'F', 'O'],
+    },
+    Abstract: {
+        type: String,
+        maxLength: 500
+    },
+    Interests: {
+        type: String,
+        minLength: 3,
+        maxLength: 10
+    },
+    Zodiac: {
+        type: String
+    },
+    Pets: {
+        type: String
+    },
+    Company: {
+        type: String
+    },
+    Drinking: {
+        type: Boolean
+    },
+    Smoking: {
+        type: Boolean
+    },
+    PerfectDateQuestion: {
+        type: String,
+        maxLength: 200
+    },
+    Quote: {
+        type: String,
+        maxLength: 60
     }
 }, { timestamps: true });
 
