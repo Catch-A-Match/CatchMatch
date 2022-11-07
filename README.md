@@ -110,6 +110,7 @@ We want to `customize` this api call to send `OTP` to phone numbers.
 2. Bulk SMS Gateway API
 - https://rapidapi.com/linkses/api/afilnet-sms/
 - https://www.smsgatewayhub.com/free-sms-gateway-developer-api#single_sms
+- https://rapidapi.com/kapsystem/api/bulksmsapi/
 ## References
 1. https://stackoverflow.com/questions/66602407/how-to-use-firebase-only-for-authentication
 2. https://firebase.google.com/docs/auth/web/phone-auth#send-a-verification-code-to-the-users-phone
