@@ -60,6 +60,10 @@ https://api.tomtom.com/search/2/nearbySearch/.json?key=0CASV6bB6j5YhCkgymYl9GAcF
 2. Search for an SMS Gateway API to send `OTP` to Phone Numbers via `SMS` 
 3. Not using `firebaseConfig.js` right now, `Firebase Auth` as a middleware is not efficient
 4. `Location` based Users mapping `Geolocation API`.
+5. `PM2` Clustering to optimize API.
+6. `Redis` to Cache App and reduce `Latency`.
+7. Using `HTTP/2` instead of `HTTP`.
+8. Query Indexing for `MongoDB`.
 
 ## Updates
 1. User Profile for a registered User
