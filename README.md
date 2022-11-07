@@ -54,7 +54,42 @@ https://api.tomtom.com/search/2/nearbySearch/.json?key=0CASV6bB6j5YhCkgymYl9GAcF
 14. Perfect Date Question (200 words)
 15. Quote ?
 ```
+## SMS Gateway
+`Afilnet SMS` API can be used 
 
+https://rapidapi.com/linkses/api/afilnet-sms/
+
+In this, we enter different params like this
+```js
+const axios = require("axios");
+
+const encodedParams = new URLSearchParams();
+encodedParams.append("user", "<REQUIRED>");
+encodedParams.append("from", "<REQUIRED>");
+encodedParams.append("to", "<REQUIRED>");
+encodedParams.append("sms", "<REQUIRED>");
+encodedParams.append("method", "sendsms");
+encodedParams.append("class", "sms");
+encodedParams.append("password", "<REQUIRED>");
+
+const options = {
+  method: 'POST',
+  url: 'https://afilnet-sms.p.rapidapi.com/',
+  headers: {
+    'content-type': 'application/x-www-form-urlencoded',
+    'X-RapidAPI-Key': 'e51cab1eccmshfd3d083858be8f0p1529eajsn0860685ea5d1',
+    'X-RapidAPI-Host': 'afilnet-sms.p.rapidapi.com'
+  },
+  data: encodedParams
+};
+
+axios.request(options).then(function (response) {
+	console.log(response.data);
+}).catch(function (error) {
+	console.error(error);
+});
+```
+We want to `customize` this api call to send `OTP` to phone numbers.
 ## TODO
 1. Work on User Profile Model Schema to add to the MongoDB Database when signup is done
 2. Search for an SMS Gateway API to send `OTP` to Phone Numbers via `SMS` 
@@ -71,6 +106,10 @@ https://api.tomtom.com/search/2/nearbySearch/.json?key=0CASV6bB6j5YhCkgymYl9GAcF
 - https://stackoverflow.com/questions/50092125/creating-a-profile-for-a-registered-user-in-node-js
 - https://github.com/haydanu/user-profile
 - https://technotip.com/3832/fetch-individual-user-data-from-mongodb-node-js/
+
+2. Bulk SMS Gateway API
+- https://rapidapi.com/linkses/api/afilnet-sms/
+- https://www.smsgatewayhub.com/free-sms-gateway-developer-api#single_sms
 ## References
 1. https://stackoverflow.com/questions/66602407/how-to-use-firebase-only-for-authentication
 2. https://firebase.google.com/docs/auth/web/phone-auth#send-a-verification-code-to-the-users-phone
