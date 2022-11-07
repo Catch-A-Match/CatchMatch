@@ -59,6 +59,7 @@ https://api.tomtom.com/search/2/nearbySearch/.json?key=0CASV6bB6j5YhCkgymYl9GAcF
 1. Work on User Profile Model Schema to add to the MongoDB Database when signup is done
 2. Search for an SMS Gateway API to send `OTP` to Phone Numbers via `SMS` 
 3. Not using `firebaseConfig.js` right now, `Firebase Auth` as a middleware is not efficient
+4. `Location` based Users mapping `Geolocation API`.
 
 ## Updates
 1. User Profile for a registered User
