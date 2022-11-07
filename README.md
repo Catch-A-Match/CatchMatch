@@ -21,6 +21,12 @@ http://localhost:3001/api/user/signup/verify
 http://localhost:3001/api/user/update/:username
 ```
 Add details according to the 
+
+### 3. LoveCalculator API
+1. GET Request to get Compatibility Score for `fname` and `sname`.
+```
+http://localhost:3001/api/calculate
+```
 ## User Profile Schema
 ```
 1. Name
