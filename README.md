@@ -27,6 +27,15 @@ Add details according to the
 ```
 http://localhost:3001/api/calculate
 ```
+
+### 4. Geolocation API
+Currently working on `Tom Tom` Geolocation API
+- https://developer.tomtom.com/search-api/documentation/search-service/nearby-search
+
+GET Request to Get Nearby Info on a `Latitude` and `Longitude`
+```
+https://api.tomtom.com/search/2/nearbySearch/.json?key=0CASV6bB6j5YhCkgymYl9GAcFvvZ1meR&lat=30.656780&lon=76.807358
+```
 ## User Profile Schema
 ```
 1. Name
