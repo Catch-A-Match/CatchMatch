@@ -93,7 +93,7 @@ We want to `customize` this api call to send `OTP` to phone numbers.
 ## TODO
 1. Work on User Profile Model Schema to add to the MongoDB Database when signup is done
 2. Search for an SMS Gateway API to send `OTP` to Phone Numbers via `SMS` 
-3. Not using `firebaseConfig.js` right now, `Firebase Auth` as a middleware is not efficient
+3. Geolocation based Indexing and recommendation of users
 4. `Location` based Users mapping `Geolocation API`.
 5. `PM2` Clustering to optimize API.
 6. `Redis` to Cache App and reduce `Latency`.
