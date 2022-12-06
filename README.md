@@ -54,6 +54,23 @@ https://api.tomtom.com/search/2/nearbySearch/.json?key=0CASV6bB6j5YhCkgymYl9GAcF
 14. Perfect Date Question (200 words)
 15. Quote ?
 ```
+
+1. Users
+2. Matches
+3. Chats
+
+### 1. User Model Schema
+```
+```
+### 2. Matches Model Schema
+```
+
+```
+### 3. Chats Model Schema
+```
+
+```
+
 ## SMS Gateway
 `Afilnet SMS` API can be used 
 
@@ -118,3 +135,4 @@ We want to `customize` this api call to send `OTP` to phone numbers.
 4. https://medium.com/google-developer-experts/verifying-phone-numbers-with-firebase-phone-authentication-on-your-backend-for-free-7a9bef326d02
 5. mongodb.com/docs/atlas/app-services/authentication/custom-jwt/?_ga=2.93458714.643182044.1667548308-253402785.1665956341
 6. https://www.cometchat.com/tutorials/tinder-clone-dating-website-node-js
+7. https://gist.github.com/rtt/10403467
