@@ -136,3 +136,6 @@ We want to `customize` this api call to send `OTP` to phone numbers.
 5. mongodb.com/docs/atlas/app-services/authentication/custom-jwt/?_ga=2.93458714.643182044.1667548308-253402785.1665956341
 6. https://www.cometchat.com/tutorials/tinder-clone-dating-website-node-js
 7. https://gist.github.com/rtt/10403467
+8. https://stackoverflow.com/questions/7848093/find-nearby-users-of-an-app-iphone-and-android
+9. https://www.youtube.com/watch?v=LYaPY7Tzeo4&ab_channel=ToThePointCode [2FA with NodeJS and MongoDB]
+10. https://dev.to/harshmangalam/mobile-otp-based-authentication-and-authorization-api-using-nodejs-and-mongodb-2hpk
