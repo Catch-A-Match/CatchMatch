@@ -29,7 +29,50 @@ http://localhost:3001/api/calculate
 ```
 
 ### 4. Geolocation API
-Currently working on `Tom Tom` Geolocation API
+Another Approach
+1. Add a `location` field in the `User Schema` like this
+```js
+const UserSchema = new mongoose.Schema({
+  // Other fields...
+  location: {
+    type: {
+      type: String,
+      enum: ['Point'],
+      required: true
+    },
+    coordinates: {
+      type: [Number],
+      required: true
+    }
+  }
+});
+```
+
+Now, add method to `getNearbyUsers` using this
+```js
+exports.getNearbyUsers = (req, res) => {
+  const { longitude, latitude } = req.query;
+
+  // Find users within a certain distance of the given location
+  User.find({
+    location: {
+      $geoWithin: {
+        $centerSphere: [[longitude, latitude], distance / 3963.2]
+      }
+    }
+  })
+    .then(users => res.json(users))
+    .catch(err => console.error(err));
+};
+```
+
+Now, add route to add to the `API`
+```js
+router.get('/users/nearby', userController.getNearbyUsers);
+```
+
+------------
+For using `Tom Tom` Geolocation API
 - https://developer.tomtom.com/search-api/documentation/search-service/nearby-search
 
 GET Request to Get Nearby Info on a `Latitude` and `Longitude`
