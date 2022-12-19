@@ -67,9 +67,12 @@ https://api.tomtom.com/search/2/nearbySearch/.json?key=0CASV6bB6j5YhCkgymYl9GAcF
 ```
 
 ```
-### 3. Chats Model Schema
+### 3. Message Model Schema
 ```
-
+1. Sender
+2. Recipient
+3. Content
+4. Date
 ```
 
 ## SMS Gateway
