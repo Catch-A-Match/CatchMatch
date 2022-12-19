@@ -14,7 +14,7 @@ exports.createProfile = (req, res) => {
     const { instagram, Age, Gender, Abstract, interests, zodiac, pets, company, drinking, smoking, perfectdatequestion, quote } = req.body;
     // New Profile Object
     const newProfile = new Profile({
-        user: req.user.id,
+        user: req.body.username,
         instagram, // Not required
         Age, 
         Gender, 
@@ -38,7 +38,7 @@ exports.createProfile = (req, res) => {
  * Get Profile
  */
 exports.getProfile = (req, res) => {
-    Profile.findOne({ user: req.user.id })
+    Profile.findOne({ user: req.body.usernam })
         .populate('user', ['username'])
         .then(profile => {
             if (!profile) {
@@ -74,7 +74,7 @@ exports.updateProfile = (req, res) => {
     if (quote) profileFields.quote = quote;
     
     Profile.findOneAndUpdate(
-        { user: req.user.id },
+        { user: req.body.username.id },
         { $set: profileFields },
         { new: true }
     )
@@ -86,9 +86,9 @@ exports.updateProfile = (req, res) => {
  * Delete Profile
  */
 exports.deleteProfile = (req, res) => {
-    Profile.findOneAndRemove({ user: req.user.id })
+    Profile.findOneAndRemove({ user: req.body.username })
         .then(() => {
-            User.findOneAndRemove({ _id: req.user.id })
+            User.findOneAndRemove({ _id: req.body.username.id })
                 .then(() => res.json({ msg: 'User Deleted' }))
                 .catch(err => console.error(err));
         })
