@@ -50,5 +50,34 @@ exports.getProfile = (req, res) => {
 }
 
 /**
- * 
+ * Update Profile
  */
+exports.updateProfile = (req, res) => {
+    const err = validationResult(req);
+    if (!err.isEmpty()) {
+        return res.status(400).json({ msg: err.array() });
+    }
+
+    // Get Updated profile fields from the req body
+    const profileFields = {};
+    if (Instagram) profileFields.Instagram = Instagram;
+    if (Age) profileFields.Age = Age;
+    if (Gender) profileFields.Gender = Gender;
+    if (Abstract) profileFields.Abstract = Abstract;
+    if (interests) profileFields.interests = interests;
+    if (zodiac) profileFields.zodiac = zodiac;
+    if (pets) profileFields.pets = pets;
+    if (company) profileFields.company = company;
+    if (drinking) profileFields.drinking = drinking;
+    if (smoking) profileFields.smoking = smoking;
+    if (perfectdatequestion) profileFields.perfectdatequestion = perfectdatequestion;
+    if (quote) profileFields.quote = quote;
+    
+    Profile.findOneAndUpdate(
+        { user: req.user.id },
+        { $set: profileFields },
+        { new: true }
+    )
+    .then(profile => res.json(profile))
+    .catch(err => console.error(err));
+};
