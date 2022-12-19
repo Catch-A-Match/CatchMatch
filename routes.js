@@ -3,6 +3,7 @@ const { check } = require('express-validator');
 const { signUp, verifyOtp } = require('./controllers/userController');
 const { createProfile, getProfile, updateProfile, deleteProfile } = require('./controllers/profileController');
 const { createMessage, getAllMessages, getMessageById, deleteMessage } = require('./controllers/messageController');
+const { createMatch, updateMatch, deleteMatch } = require('./controllers/matchController');
 
 // Auth Routes
 router.route('/signup')
@@ -25,5 +26,10 @@ router.route('/createmessage').post(createMessage);
 router.route('/getallmessages').get(getAllMessages);
 router.route('/getmessagebyid/:id').get(getMessageById);
 router.route('/delete').delete(deleteMessage);
+
+// Match Routes
+router.route('/creatematch').post(createMatch);
+router.route('/updatematch/:id').patch(updateMatch);
+router.route('/deletematch/:id').delete(deleteMatch);
 
 module.exports = router;

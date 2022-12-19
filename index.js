@@ -39,6 +39,11 @@ app.use('/api/profiles', userRouter);
 app.use('/api/messages', userRouter);
 
 /**
+ * Match Routes
+ */
+app.use('/api/matches', userRouter);
+
+/**
  * Love Calculator API Added
  */
 app.use('/api/calculate', async (req, res) => {
