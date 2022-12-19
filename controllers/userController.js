@@ -1,13 +1,33 @@
 const bcrypt = require('bcrypt');
 const _ = require('lodash');
 const axios = require('axios');
+const twilio = require('twilio');
 const otpGenerator = require('otp-generator');
+
+const client = new twilio(process.env.TWILIO_SID, process.env.TWILIO_AUTH_TOKEN);
 
 const { User } = require('../models/User');
 const { Otp } = require('../models/otp');
 
 /**
- * Function to get Number and Send OTP
+ * Send OTP using Twilio
+ */
+function sendOTP(to, otp) {
+    client.messages.create({
+        to: to,
+        from: '+13863392212',
+        body: `Your OTP is ${otp}. Please do not share with anyone`,
+    }, (err, message) => {
+        if (message) {
+            console.log(message.sid);
+        } else {
+            console.log(`Error sending SMS: ${err}`);
+        }
+    });
+}
+
+/**
+ * Function to get Number and Send OTP using SMS Twilio
  */
 module.exports.signUp = async (req, res) => {
     try {
@@ -15,27 +35,28 @@ module.exports.signUp = async (req, res) => {
             number: req.body.number,
             username: req.body.username,
         });
-        const number = req.body.number;
+        const number = req.body.number.toString();
         const username = req.body.username;
         if (user) {
             return res.status(400).json({
                 error: true,
-                message: "Username is already in use"
+                message: "Username already in user"
             });
         }
+        // Randomly Generate OTP
+        // const OTP = Math.floor(100000 + Math.random() * 900000);
         const OTP = otpGenerator.generate(6, {
             digits: true, lowerCaseAlphabets: false, upperCaseAlphabets: false, specialChars: false
         });
         console.log(OTP);
-
-        const otp = new Otp({ number: number, otp: OTP });
+        
+        const otp = new Otp({ number: number, otp: OTP })
         const salt = await bcrypt.genSalt(10);
-        otp.otp = await bcrypt.hash(otp.otp, salt);
+        otp.otp = await bcrypt.hash(OTP, salt);
         const result = await otp.save();
-        // user = new User(req.body);
-        // await user.save();
 
-        return res.status(201).send("OTP Sent Successfully");
+        sendOTP(number, OTP);
+        return res.status(201).send(" OTP Sent Successfully ");
     } catch (err) {
         console.log(err);
         return res.status(500).json({
@@ -43,30 +64,8 @@ module.exports.signUp = async (req, res) => {
             message: "Cannot Sign Up"
         });
     }
-} 
-/**
-module.exports.signUp = async (req, res) => {
-    const user = await User.findOne({
-        number: req.body.number
-    });
-    const number = req.body.number;
-
-    if (user) {
-        return res.status(400).send("User Already registered");
-    }
-    const OTP = otpGenerator.generate(6, {
-        digits: true, lowerCaseAlphabets: false, upperCaseAlphabets: false, specialChars: false
-    });
-    console.log(OTP);
-    
-    const otp = new Otp({ number: number, otp: OTP });
-    const salt = await bcrypt.genSalt(10);
-    otp.otp = await bcrypt.hash(otp.otp, salt); 
-    const result = await otp.save();
-    
-    return res.status(200).send("OTP Sent Successfully");
 }
-*/
+
 /**
  * Function to verify OTP
  */
