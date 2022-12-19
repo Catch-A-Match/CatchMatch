@@ -29,6 +29,11 @@ app.patch('/api/user/update/:username', async (req, res) => {
 });
 
 /**
+ * Profile Routes
+ */
+app.use('/api/profiles', userRouter);
+
+/**
  * Love Calculator API Added
  */
 app.use('/api/calculate', async (req, res) => {

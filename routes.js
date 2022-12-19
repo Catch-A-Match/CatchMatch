@@ -10,14 +10,13 @@ router.route('/signup/verify')
     .post(verifyOtp);
 
 // Profile Routes [Apply check() for required fields]
-router.route('/profiles',
+router.route('/create',
     check('Abstract').not().isEmpty()
 ).post(createProfile);
-
-router.route('/profiles').get(getProfile);
-router.route('/profiles',
+router.route('/get').get(getProfile);
+router.route('/update',
     check('Abstract').not().isEmpty()
 ).put(updateProfile);
-router.route('/profile').delete(deleteProfile);
+router.route('/delete').delete(deleteProfile);
 
 module.exports = router;
