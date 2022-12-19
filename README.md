@@ -39,6 +39,15 @@ https://api.tomtom.com/search/2/nearbySearch/.json?key=0CASV6bB6j5YhCkgymYl9GAcF
 ## User Profile Schema
 ```
 1. Name
+```
+
+1. Users
+2. Matches
+3. Chats
+
+### 1. Profile Model Schema
+```
+1. Username
 2. Instagram
 3. Age
 4. Alias
@@ -53,14 +62,6 @@ https://api.tomtom.com/search/2/nearbySearch/.json?key=0CASV6bB6j5YhCkgymYl9GAcF
 13 Smoking?
 14. Perfect Date Question (200 words)
 15. Quote ?
-```
-
-1. Users
-2. Matches
-3. Chats
-
-### 1. User Model Schema
-```
 ```
 ### 2. Matches Model Schema
 ```
