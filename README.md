@@ -36,9 +36,28 @@ GET Request to Get Nearby Info on a `Latitude` and `Longitude`
 ```
 https://api.tomtom.com/search/2/nearbySearch/.json?key=0CASV6bB6j5YhCkgymYl9GAcFvvZ1meR&lat=30.656780&lon=76.807358
 ```
+
+### 5. Profile Schema API
+1. <b>Create a Profile</b>:-  `POST` request to the `/api/profiles/` endpoint
+```
+http://localhost:3001/api/profiles/create?username=<username>
+```
+2. <b>Get Profile</b>:- `GET` Request to the `/api/profiles/` Endpoint
+```
+http://localhost:3001/api/profiles/get
+```
+3. <b>Update Profile</b>:- `PUT` Request to the Endpoint
+```
+Under test....
+```
+4. <b>Delete Profile</b>:- `DELETE` Request to the Endpoint
+```
+http://localhost:3001/api/profiles/delete?username=<username>
+```
+-------------------------
 ## User Profile Schema
 ```
-1. Name
+1. Username
 ```
 
 1. Users
