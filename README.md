@@ -127,11 +127,30 @@ http://localhost:3001/api/profiles/delete?username=<username>
 ```
 ### 2. Matches Model Schema
 ```
-1. Users 
-2. Date
-
+1. User1 Id
+2. User2 Id
+3. Similarity
 ```
-In this, `users` is an array of `ObjectIds` of the users who are matched with one another along with the `Date` field to store the date of the match.
+We have `User1 ID` and `User2 ID` in this and we use `Jaccard Similarity Index` on each user's `Abstract` to calculate their compatibility and store it in `similarity`
+
+- `createMatch` -> `POST` request to calculate `similarity` and create a match
+- `updateMatch` -> `PATCH` request to update a match
+- `deleteMatch` -> `DELETE` request to delete a match
+
+API 
+1. Create Match `POST`
+```
+http://localhost:3001/api/matches/creatematch?user1=<user1>&user2=<user2>
+```
+2. Update Match `PATCH`
+```
+http://localhost:3001/api/matches/updatematch?match=<matchId>
+```
+3. Delete Match `DELETE`
+```
+http://localhost:3001/api/matches/deletematch?match=<matchId>
+```
+-----------------
 
 Some few points to consider to further modify the Schema
 1. Store Additional details about the match, as whether the users have `exchanged` messages or `met` in person.
@@ -145,6 +164,8 @@ Some few points to consider to further modify the Schema
 3. Content
 4. Date
 ```
+
+1. Content Type: `Audio Message` support `Url` in the backend and upload the message in either `local` or `bucket`.
 
 ## SMS Gateway
 Using `Twilio SMS` API for sending OTP.
