@@ -65,8 +65,17 @@ https://api.tomtom.com/search/2/nearbySearch/.json?key=0CASV6bB6j5YhCkgymYl9GAcF
 ```
 ### 2. Matches Model Schema
 ```
+1. Users 
+2. Date
 
 ```
+In this, `users` is an array of `ObjectIds` of the users who are matched with one another along with the `Date` field to store the date of the match.
+
+Some few points to consider to further modify the Schema
+1. Store Additional details about the match, as whether the users have `exchanged` messages or `met` in person.
+2. If we want to add the `specific messages` exchanged with one another, then add seperate `Message` schema and add `Match` schema to the reference.
+3. Adding the `status` of the match (`active`, `inactive`, `blocked`), might even add seperate field to track the status.
+
 ### 3. Message Model Schema
 ```
 1. Sender
