@@ -81,3 +81,16 @@ exports.updateProfile = (req, res) => {
     .then(profile => res.json(profile))
     .catch(err => console.error(err));
 };
+
+/**
+ * Delete Profile
+ */
+exports.deleteProfile = (req, res) => {
+    Profile.findOneAndRemove({ user: req.user.id })
+        .then(() => {
+            User.findOneAndRemove({ _id: req.user.id })
+                .then(() => res.json({ msg: 'User Deleted' }))
+                .catch(err => console.error(err));
+        })
+        .catch(err => console.error(err));
+};
