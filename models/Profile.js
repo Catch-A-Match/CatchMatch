@@ -8,21 +8,28 @@ const profileSchema = new mongoose.Schema({
     Instagram: {
         type: String
     },
-    Age: {
-        type: Number
+    DOB: {
+        type: Date,
+        required: true
+    },
+    sexualOrientation: {
+        type: String,
+        required: true
     },
     Gender: {
         type: String,
-        enum: ['M', 'F', 'O'],
+        required: true,
     },
     Abstract: {
         type: String,
-        maxLength: 500
+        maxLength: 500,
+        required: true
     },
     interests: {
         type: String,
         minLength: 3,
-        maxLength: 10
+        maxLength: 10,
+        required: true
     },
     zodiac: {
         type: String
@@ -37,7 +44,8 @@ const profileSchema = new mongoose.Schema({
         type: Boolean
     },
     smoking: {
-        type: Boolean
+        type: Boolean,
+        required: true
     },
     perfectdatequestion: {
         type: String,
@@ -45,7 +53,12 @@ const profileSchema = new mongoose.Schema({
     },
     quote: {
         type: String,
-        maxLength: 60
+        maxLength: 60,
+        required: true
+    },
+    problemWithSmoking: {
+        type: Boolean,
+        required: true
     }
 });
 
