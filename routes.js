@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { check } = require('express-validator');
 const { signUp, verifyOtp } = require('./controllers/userController');
-const { createProfile } = require('./controllers/profileController');
+const { createProfile, getProfile, updateProfile, deleteProfile } = require('./controllers/profileController');
 
 // Auth Routes
 router.route('/signup')
@@ -13,5 +13,6 @@ router.route('/signup/verify')
 router.post('/profiles', [
     check('Abstract').not().isEmpty(),
 ], createProfile)
+router.get('/profiles', getProfile);
 
 module.exports = router;

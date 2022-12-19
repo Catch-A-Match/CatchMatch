@@ -33,3 +33,22 @@ exports.createProfile = (req, res) => {
     newProfile.save().then(profile => res.json(profile))
         .catch(err => console.error(err));
 }
+
+/**
+ * Get Profile
+ */
+exports.getProfile = (req, res) => {
+    Profile.findOne({ user: req.user.id })
+        .populate('user', ['username'])
+        .then(profile => {
+            if (!profile) {
+                return res.status(400).json({ msg: "There is no Profile for this User" });
+            }
+            res.json(profile);
+        })
+        .catch(err => console.error(err));
+}
+
+/**
+ * 
+ */
