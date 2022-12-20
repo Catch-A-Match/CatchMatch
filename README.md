@@ -29,46 +29,23 @@ http://localhost:3001/api/calculate
 ```
 
 ### 4. Geolocation API
-Another Approach
-1. Add a `location` field in the `User Schema` like this
-```js
-const UserSchema = new mongoose.Schema({
-  // Other fields...
-  location: {
-    type: {
-      type: String,
-      enum: ['Point'],
-      required: true
-    },
-    coordinates: {
-      type: [Number],
-      required: true
-    }
-  }
-});
-```
+MongoDB based `Geospatial Indexing` is added using `location` data field in the `User` model schema. To test it we can use this code
 
-Now, add method to `getNearbyUsers` using this
+TEST IT !!
+-------
 ```js
-exports.getNearbyUsers = (req, res) => {
-  const { longitude, latitude } = req.query;
+const getNearbyUsers = async () => {
+  const userId = '123456';
+  const radius = 10000; // 10 km
+  const page = 1;
+  const limit = 10;
 
-  // Find users within a certain distance of the given location
-  User.find({
-    location: {
-      $geoWithin: {
-        $centerSphere: [[longitude, latitude], distance / 3963.2]
-      }
-    }
-  })
-    .then(users => res.json(users))
-    .catch(err => console.error(err));
+  const response = await fetch(`https://your-api.com/nearby-users?userId=${userId}&radius=${radius}&page=${page}&limit=${limit}`);
+  const json = await response.json();
+  const nearbyUsers = json.nearbyUsers;
+  console.log(nearbyUsers);
 };
-```
 
-Now, add route to add to the `API`
-```js
-router.get('/users/nearby', userController.getNearbyUsers);
 ```
 
 ------------
