@@ -105,9 +105,47 @@ module.exports.verifyOtp = async (req, res) => {
 }
 
 /**
- * Function
+ * Function to get Nearby Users
  */
+exports.getNearbyUsers = async (req, res) => {
+    try {
+        const userId = req.query.userId;
+        const radius = req.query.radius;
+        const page = req.query.page || 1;
+        const limit = req.query.limit || 10;
+
+        const nearbyUsers = await helper(userId, radius, page, limit);
+        res.json({ nearbyUsers });
+    } catch (err) {
+        res.status(500).json({ msg: err.message });
+    }
+};
 
 /**
- * Function to add Individual User Profile 
- */
+ *  Helper Function to get nearby users
+*/
+const helper = async (userId, radius, page, limit) => {
+    const user = await User.findById(userId);
+    if (!user) {
+        throw new Error(`User with Id ${userId} not Found`);
+    }
+    const { latitude, longitude } = user.location;
+
+    // GeoSpatial Query to find other users within the radius
+    const nearbyUsers = await User.find({
+        location: {
+            $geometry: {
+                type: "Point",
+                coordinates: [longitude, latitude]
+            },
+            $maxdistance: radius
+        }
+    })
+    .skip((page - 1) * limit) // skip specified no. of documents
+    .limit(limit) // limit no. of documents returned
+    .exec();
+
+    return nearbyUsers;
+}
+
+module.exports = { helper }
