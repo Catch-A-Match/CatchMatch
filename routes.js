@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { check } = require('express-validator');
-const { signUp, verifyOtp } = require('./controllers/userController');
+const { signUp, verifyOtp, getNearbyUsers } = require('./controllers/userController');
 const { createProfile, getProfile, updateProfile, deleteProfile } = require('./controllers/profileController');
 const { createMessage, getAllMessages, getMessageById, deleteMessage } = require('./controllers/messageController');
 const { createMatch, updateMatch, deleteMatch } = require('./controllers/matchController');
@@ -10,6 +10,7 @@ router.route('/signup')
     .post(signUp);
 router.route('/signup/verify')
     .post(verifyOtp);
+router.route('/nearby-users').get(getNearbyUsers);
 
 // Profile Routes [Apply check() for required fields]
 router.route('/create',
@@ -22,14 +23,14 @@ router.route('/update',
 router.route('/delete').delete(deleteProfile);
 
 // Message Routes
-router.route('/createmessage').post(createMessage);
-router.route('/getallmessages').get(getAllMessages);
-router.route('/getmessagebyid/:id').get(getMessageById);
+router.route('/create-message').post(createMessage);
+router.route('/get-all-messages').get(getAllMessages);
+router.route('/get-message/:id').get(getMessageById);
 router.route('/delete').delete(deleteMessage);
 
 // Match Routes
-router.route('/creatematch').post(createMatch);
-router.route('/updatematch/:id').patch(updateMatch);
-router.route('/deletematch/:id').delete(deleteMatch);
+router.route('/create-match').post(createMatch);
+router.route('/update-match/:id').patch(updateMatch);
+router.route('/delete-match/:id').delete(deleteMatch);
 
 module.exports = router;
