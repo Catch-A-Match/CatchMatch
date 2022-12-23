@@ -11,12 +11,14 @@ exports.createProfile = (req, res) => {
         return res.status(400).json({ errors: err.array() });
     }
 
-    const { instagram, Age, Gender, Abstract, interests, zodiac, pets, company, drinking, smoking, perfectdatequestion, quote } = req.body;
+    const { instagram, Age, Gender, DOB, sexualOrientation, problemWithSmoking, Abstract, interests, zodiac, pets, company, drinking, smoking, perfectdatequestion, quote } = req.body;
     // New Profile Object
     const newProfile = new Profile({
         user: req.body.username,
         instagram, // Not required
         Age, 
+        DOB,
+        sexualOrientation,
         Gender, 
         Abstract, 
         interests, 
@@ -26,7 +28,8 @@ exports.createProfile = (req, res) => {
         drinking, 
         smoking, 
         perfectdatequestion, 
-        quote  
+        quote,
+        problemWithSmoking  
     });
 
     // Save to Database
@@ -62,6 +65,8 @@ exports.updateProfile = (req, res) => {
     const profileFields = {};
     if (Instagram) profileFields.Instagram = Instagram;
     if (Age) profileFields.Age = Age;
+    if (DOB) profileFields.DOB = DOB;
+    if (sexualOrientation) profileFields.sexualOrientation = sexualOrientation;
     if (Gender) profileFields.Gender = Gender;
     if (Abstract) profileFields.Abstract = Abstract;
     if (interests) profileFields.interests = interests;
@@ -72,6 +77,7 @@ exports.updateProfile = (req, res) => {
     if (smoking) profileFields.smoking = smoking;
     if (perfectdatequestion) profileFields.perfectdatequestion = perfectdatequestion;
     if (quote) profileFields.quote = quote;
+    if (problemWithSmoking) profileFields.problemWithSmoking = problemWithSmoking;
     
     Profile.findOneAndUpdate(
         { user: req.body.username.id },
