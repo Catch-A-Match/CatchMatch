@@ -5,13 +5,23 @@ const axios = require('axios');
 
 dotenv.config();
 const port = process.env.PORT;
-const userRouter = require('./routes');
+const userRoutes = require('./controllers/userController');
+const profileRoutes = require('./routes/profileRoutes');
+const messageRoutes = require('./routes/messageRoutes');
+const matchRoutes = require('./routes/matchRoutes');
 const { User } = require('./models/User');
 const app = express();
 app.use(express.json());
 
+// Set MaxListeners
+process.setMaxListeners(15);
+
 // API Router
-app.use('/api/user', userRouter);
+app.use('/api/user', userRoutes);
+app.use('/api/profile', profileRoutes);
+app.use('/api/message', messageRoutes);
+app.use('/api/match', matchRoutes);
+
 // Add Profile Data
 app.patch('/api/user/update/:username', async (req, res) => {
     const { Instagram, Age, Gender, Abstract, Interests, Zodiac, Pets, Company, Drinking, Smoking, PerfectDateQuestion, Quote } = req.body;
@@ -27,42 +37,6 @@ app.patch('/api/user/update/:username', async (req, res) => {
         data: updatedUser
     });
 });
-
-/**
- * Profile Routes
- */
-app.use('/api/profiles', userRouter);
-
-/**
- * Message Routes
- */
-app.use('/api/messages', userRouter);
-
-/**
- * Match Routes
- */
-app.use('/api/matches', userRouter);
-
-/**
- * Love Calculator API Added
- */
-app.use('/api/calculate', async (req, res) => {
-    const options = {
-        method: 'GET',
-        url: 'https://love-calculator.p.rapidapi.com/getPercentage',
-        params: { sname: 'Alia', fname: 'Ranbir' },
-        headers: {
-            'X-RapidAPI-Key': 'e51cab1eccmshfd3d083858be8f0p1529eajsn0860685ea5d1',
-            'X-RapidAPI-Host': 'love-calculator.p.rapidapi.com'
-        }
-    };
-    axios.request(options).then(function (res) {
-        console.log(res.data);  
-    }).catch(function (err) {
-        console.log(err);
-    })
-})
-
 
 // Connect to DB
 mongoose.connect(process.env.MONGO_URI, {
