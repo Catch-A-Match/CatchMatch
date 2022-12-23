@@ -31,13 +31,13 @@ function generateJWT(user) {
         id: user._id,
         username: user.username,
         number: user.number
-    }, process.env.JWT_SECRET, { expiresIn: '3d' });
+    }, process.env.JWT_SECRET_KEY, { expiresIn: '3d' });
 }
 
 /**
  * Function to get Number and Send OTP using SMS Twilio
  */
-router.post('/signUp', async (req, res) => {
+router.post('/signup', async (req, res) => {
     try {
         const user = await User.findOne({ number: req.body.number })
         if (user) {
@@ -54,7 +54,7 @@ router.post('/signUp', async (req, res) => {
         const otp = new Otp({ number: req.body.number, otp: hashedOTP });
         await otp.save();
 
-        sendOTP(number, OTP);
+        sendOTP(req.body.number, OTP);
         return res.status(201).send(" OTP Sent Successfully ");
     } catch (err) {
         console.log(err);
