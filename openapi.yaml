@@ -1,0 +1,495 @@
+openapi: 3.0.0
+info:
+  title: CatchMatch API
+  description: CatchMatch Text based Dating API
+  contact:
+    name: Catch-A-Match
+    url: https://github.com/Catch-A-Match
+  version: 1.0.0
+
+paths:
+  /api/v1/signup:
+    post:
+      summary: Sign up a user and send OTP via SMS
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignupRequest'
+      responses:
+        '200':
+          description: OTP Sent Successfully
+        '400':
+          description: User already exists
+
+  /api/v1/signup/verify:
+    post:
+      summary: Verify the OTP for user registration
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignupVerifyRequest'
+      responses:
+        '200':
+          description: User Registered
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserRegistrationResponse'
+        '400':
+          description: Wrong OTP Entered
+
+  /api/v1/nearby-users:
+    get:
+      summary: Get nearby users
+      parameters:
+        - in: query
+          name: userId
+          schema:
+            type: string
+          required: true
+        - in: query
+          name: radius
+          schema:
+            type: number
+          required: true
+        - in: query
+          name: page
+          schema:
+            type: number
+        - in: query
+          name: limit
+          schema:
+            type: number
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NearbyUsersResponse'
+        '500':
+          description: Internal Server Error
+
+  /api/v1/profiles:
+    post:
+      summary: Create a new profile
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateProfileRequest'
+      responses:
+        '200':
+          description: Profile created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  
+  /api/v1/profiles/{username}:
+    get:
+      summary: Get profile by username
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          required: true
+          description: Username of the profile to retrieve
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    put:
+      summary: Update profile by username
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          required: true
+          description: Username of the profile to update
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateProfileRequest'
+      responses:
+        '200':
+          description: Profile updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    delete:
+      summary: Delete profile by username
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          required: true
+          description: Username of the profile to delete
+      responses:
+        '200':
+          description: Profile and user deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/v1/matches:
+    post:
+      summary: Create a new match
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateMatchRequest'
+      responses:
+        '200':
+          description: Match created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Match'
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  
+  /api/v1/matches/{id}:
+    put:
+      summary: Update a Match
+      parameters:
+        - in: path
+          name: id
+          schema: 
+            type: string
+          required: true
+          description: ID of the match to update
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateMatchRequest'
+      responses:
+        '200':
+          description: Match updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Match'
+        '404':
+          description: Match not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    delete:
+      summary: Delete a match
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: ID of the match to delete
+      responses:
+        '200':
+          description: Match deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Match'
+        '404':
+          description: Match not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  schemas:
+    Coordinates:
+      type: object
+      properties:
+        latitude: 
+          type: number
+          format: float
+        longitude:
+          type: number
+          format: float
+    
+    SignupRequest:
+      type: object
+      properties:
+        number:
+          type: number
+        username:
+          type: string
+        location:
+          $ref: '#/components/schemas/Coordinates'
+
+    SignupVerifyRequest:
+      type: object
+      properties:
+        number:
+          type: number
+        otp:
+          type: string
+
+    UserRegistrationResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        token:
+          type: string
+        data:
+          $ref: '#/components/schemas/User'
+    
+    User:
+      type: object
+      properties:
+        number:
+          type: number
+        username:
+          type: string
+        location:
+          $ref: '#/components/schemas/Coordinates'
+          
+    NearbyUsersResponse:
+      type: object
+      properties:
+        nearbyUsers:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+    
+    OTP:
+      type: object
+      properties:
+        number:
+          type: number
+        username:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+
+    Profile:
+      type: object
+      properties:
+        user:
+          $ref: '#/components/schemas/User'
+        Instagram:
+          type: string
+        DOB:
+          type: string
+          format: date
+        sexualOrientation:
+          type: string
+        Gender:
+          type: string
+        Abstract:
+          type: string
+          maxLength: 500
+        interests:
+          type: array
+          items:
+            type: string
+          minLength: 3
+          maxLength: 10
+        zodiac:
+          type: string
+        pets:
+          type: string
+        company:
+          type: string
+        drinking:
+          type: boolean
+        smoking:
+          type: boolean
+        perfectdatequestion:
+          type: string
+          maxLength: 200
+        quote:
+          type: string
+          maxLength: 60
+        problemWithSmoking:
+          type: boolean
+    
+    CreateProfileRequest:
+      type: object
+      properties:
+        username:
+          type: string
+        instagram:
+          type: string
+        Age:
+          type: number
+        DOB:
+          type: string
+          format: date
+        sexualOrientation:
+          type: string
+        Gender:
+          type: string
+        Abstract:
+          type: string
+        interests:
+          type: array
+          items:
+            type: string
+        zodiac:
+          type: string
+        pets:
+          type: string
+        company:
+          type: string
+        drinking:
+          type: boolean
+        smoking:
+          type: boolean
+        perfectdatequestion:
+          type: string
+        quote:
+          type: string
+        problemWithSmoking:
+          type: boolean
+
+    UpdateProfileRequest:
+      type: object
+      properties:
+        instagram:
+          type: string
+        Age:
+          type: number
+        DOB:
+          type: string
+          format: date
+        sexualOrientation:
+          type: string
+        Gender:
+          type: string
+        Abstract:
+          type: string
+        interests:
+          type: array
+          items:
+            type: string
+        zodiac:
+          type: string
+        pets:
+          type: string
+        company:
+          type: string
+        drinking:
+          type: boolean
+        smoking:
+          type: boolean
+        perfectdatequestion:
+          type: string
+        quote:
+          type: string
+        problemWithSmoking:
+          type: boolean
+    
+    ErrorResponse:
+      type: object
+      properties:
+        msg:
+          type: string
+
+    SuccessResponse:
+      type: object
+      properties:
+        msg:
+          type: string
+    
+    CreateMatchRequest:
+      type: object
+      properties:
+        user1Id:
+          type: string
+        user2Id:
+          type: string
+
+    UpdateMatchRequest:
+      type: object
+      properties:
+        user1:
+          type: string
+        user2:
+          type: string
+        similarity:
+          type: number
+    
+    Match:
+      type: object
+      properties:
+        user1Id:
+          $ref: '#/components/schemas/User'
+        user2Id:
+          $ref: '#/components/schemas/User'
+        similarity:
+          type: number
